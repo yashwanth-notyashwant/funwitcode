@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/authformstudent.dart';
 
 void main() {
   runApp(const MyApp());
@@ -106,12 +107,12 @@ class _AuthPageState extends State<AuthPage> {
                           margin: const EdgeInsets.all(5),
                           child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => AuthFormFaculty(),
-                              //   ),
-                              // );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AuthFormStudent(),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
@@ -127,7 +128,7 @@ class _AuthPageState extends State<AuthPage> {
                               ),
                               textStyle: const TextStyle(fontSize: 20.0),
                             ),
-                            child: const Text('ADMIN'),
+                            child: const Text('Login'),
                           ),
                         ),
                         Container(
@@ -157,7 +158,7 @@ class _AuthPageState extends State<AuthPage> {
                               textStyle: const TextStyle(fontSize: 20.0),
                             ),
                             child: const Text(
-                              'STUDENT',
+                              'Signup',
                             ),
                           ),
                         ),
