@@ -107,7 +107,7 @@ class _AuthPageState extends State<AuthPage> {
                           margin: const EdgeInsets.all(5),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => AuthFormStudent(),

@@ -152,7 +152,7 @@ class _AuthFormStudentState extends State<AuthFormStudent> {
                     //       await Provider.of<Posts>(context, listen: false)
                     //           .fetchPostsFromDatabaseForAdmin(userObtainded[1]);
 
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(),

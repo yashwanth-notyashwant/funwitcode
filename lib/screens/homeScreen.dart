@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:funwitcode/screens/python_chapters.dart';
 
 import '../widgets.dart/card.dart';
 
@@ -53,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
         //     style: TextStyle(color: Colors.white, fontSize: 20),
         //   ),
         //   onPressed: () {
-        //     // Navigator.push(
+        //     // Navigator.
+        // (
         //     //   context,
         //     //   MaterialPageRoute(
         //     //       builder: (context) => NewPostsScreen(

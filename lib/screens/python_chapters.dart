@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chapter_screen.dart';
+
 // ignore: must_be_immutable
 class PythonChaptersListScreen extends StatefulWidget {
   @override
@@ -9,9 +11,18 @@ class PythonChaptersListScreen extends StatefulWidget {
 
 class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
+  final List<String> texts = [
+    " 1.Variables",
+    " 2.Functions",
+    " 3.Conditionals",
+    " 4.Loops",
+    " 5.Lists",
+    " 6.Dictionaries",
+  ];
   @override
   Widget build(BuildContext context) {
-    // var hi = MediaQuery.of(context).size.height;
+    // var hi = MediaQuery.of(context).size.height;a
     var wi = MediaQuery.of(context).size.width;
 
     return MaterialApp(
@@ -129,6 +140,50 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
                 //     //nothing is there maaaaa
                 //   },
                 // ),
+                Container(
+                  height: 700,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: texts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        height: 70,
+                        padding: EdgeInsets.only(top: 10, left: 10),
+                        margin: EdgeInsets.all(
+                            10.0), // Adding margin between ListTiles
+                        decoration: BoxDecoration(
+                          color: Colors.white, // Background color
+                          borderRadius:
+                              BorderRadius.circular(20.0), // Curved borders
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: Offset(0, 2), // Shadow offset
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                          title: Text(
+                            texts[index],
+                            key: Key(index.toString()),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w400),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChapterScreen(index)),
+                            );
+                            print(index + 1);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
