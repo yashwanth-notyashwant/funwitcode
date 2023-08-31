@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/quiz_screen_conditional.dart';
+import 'package:funwitcode/screens/quiz_screen_dictionaries.dart';
 import 'package:funwitcode/screens/quiz_screen_function.dart';
+import 'package:funwitcode/screens/quiz_screen_lists.dart';
+import 'package:funwitcode/screens/quiz_screen_loops.dart';
 import 'package:funwitcode/screens/quiz_screen_variables.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +24,14 @@ class _ChapterScreenState extends State<ChapterScreen> {
     " 6.Dictionaries",
   ];
 
-  final List classNames = [QuizPageVariable(), QuizPageFunction()];
+  final List classNames = [
+    QuizPageVariable(),
+    QuizPageFunction(),
+    QuizPageConditionals(),
+    QuizPageLoops(),
+    QuizPageLists(),
+    QuizPageDict(),
+  ];
   //add all here finally
 
   final List<String> texts = [

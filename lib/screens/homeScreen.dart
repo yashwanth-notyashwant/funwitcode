@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
+import 'package:funwitcode/screens/profile.dart';
 
 import '../widgets.dart/card.dart';
+import 'leader_board_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -39,6 +41,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => AuthFormStudent()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.shield,
+                ),
+                title: const Text('Leaderboard'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LeaderBoardScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.person,
+                ),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
                   );
                 },
               ),
