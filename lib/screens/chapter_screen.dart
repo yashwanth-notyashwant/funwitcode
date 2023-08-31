@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/quiz_screen_function.dart';
 import 'package:funwitcode/screens/quiz_screen_variables.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +19,9 @@ class _ChapterScreenState extends State<ChapterScreen> {
     " 5.Lists",
     " 6.Dictionaries",
   ];
+
+  final List classNames = [QuizPageVariable(), QuizPageFunction()];
+  //add all here finally
 
   final List<String> texts = [
     """ 
@@ -732,7 +736,9 @@ print(list_dict_, set_dict_, int_dict_)
               child: TextButton(
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => QuizPage()),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            classNames[widget.indexOfChapters]),
                   );
                   // push to quiz page
                 },

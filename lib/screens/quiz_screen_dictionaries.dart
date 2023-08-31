@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class QuizPageVariable extends StatefulWidget {
+class QuizPageDict extends StatefulWidget {
   @override
-  _QuizPageVariableState createState() => _QuizPageVariableState();
+  _QuizPageDictState createState() => _QuizPageDictState();
 }
 
-class _QuizPageVariableState extends State<QuizPageVariable> {
+class _QuizPageDictState extends State<QuizPageDict> {
   int currentQuestionIndex = 0;
   List<Map<String, dynamic>> variable = [
     {

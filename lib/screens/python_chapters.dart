@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
+import 'package:funwitcode/screens/quiz_screen_function.dart';
+import 'package:funwitcode/screens/quiz_screen_variables.dart';
 
 import 'chapter_screen.dart';
 
@@ -21,6 +23,7 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
     " 5.Lists",
     " 6.Dictionaries",
   ];
+
   @override
   Widget build(BuildContext context) {
     // var hi = MediaQuery.of(context).size.height;a
