@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/authformstudent.dart';
 
 import '../widgets.dart/card.dart';
 
@@ -35,10 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 title: const Text('Logout'),
                 onTap: () {
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => AuthPage()),
-                  // );
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthFormStudent()),
+                  );
                 },
               ),
             ],

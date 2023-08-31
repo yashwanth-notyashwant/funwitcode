@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/authformstudent.dart';
 
 import 'chapter_screen.dart';
 
@@ -45,10 +46,9 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
                 ),
                 title: const Text('Logout'),
                 onTap: () {
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => AuthPage()),
-                  // );
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => AuthFormStudent()),
+                  );
                 },
               ),
             ],

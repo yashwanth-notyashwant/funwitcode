@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/quiz_screen_variables.dart';
 
 // ignore: must_be_immutable
 class ChapterScreen extends StatefulWidget {
@@ -721,6 +722,30 @@ print(list_dict_, set_dict_, int_dict_)
               Navigator.of(context).pop();
             },
           ),
+          actions: [
+            Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 182, 222, 255),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              margin: EdgeInsets.only(right: 20, top: 10),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => QuizPage()),
+                  );
+                  // push to quiz page
+                },
+                child: Text(
+                  " Skip >>",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Container(
