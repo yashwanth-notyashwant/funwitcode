@@ -43,6 +43,7 @@ class LeaderBoardScreen extends StatelessWidget {
                         ],
                       ),
                       child: ListTile(
+                        trailing: Text("Score 31"),
                         subtitle: Text(
                           users[index].email,
                           key: Key(index.toString()),

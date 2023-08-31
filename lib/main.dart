@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/screens/signup_screen.dart';
 import './screens/authformstudent.dart';
 
 void main() {
@@ -137,11 +138,11 @@ class _AuthPageState extends State<AuthPage> {
                           margin: const EdgeInsets.all(5),
                           child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => AuthFormStudent()),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupScreen()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
