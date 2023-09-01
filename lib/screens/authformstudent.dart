@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/models/user.dart';
+import 'package:provider/provider.dart';
 
 import 'homeScreen.dart';
 
@@ -62,7 +64,7 @@ class _AuthFormStudentState extends State<AuthFormStudent> {
                   child: TextFormField(
                     controller: usernameController1,
                     decoration: InputDecoration(
-                      labelText: 'Username',
+                      labelText: 'Phone number ',
                       labelStyle: const TextStyle(
                         color: const Color.fromARGB(255, 27, 67, 77),
                       ),
@@ -80,7 +82,7 @@ class _AuthFormStudentState extends State<AuthFormStudent> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter a Username .';
+                        return 'Please enter a number  .';
                       }
                       // Add additional validation rules as needed
                       return null; // Return null if the value is valid
@@ -138,30 +140,32 @@ class _AuthFormStudentState extends State<AuthFormStudent> {
                     //   usernameController1.text.trim() +
                     //       usernameController2.text.trim(),
                     // );
-                    // List userObtainded =
-                    //     await Provider.of<Admins>(context, listen: false)
-                    //         .isUserFoundInDatabase(
-                    //   usernameController1.text.trim().toString(),
-                    //   usernameController2.text.trim().toString(),
-                    // );
-                    // print(userObtainded[0]);
-
-                    // if (userObtainded[0] == true) {
-                    //   //load all his posts and send to AdminPostsScreen
-                    //   List allPosts =
-                    //       await Provider.of<Posts>(context, listen: false)
-                    //           .fetchPostsFromDatabaseForAdmin(userObtainded[1]);
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
+                    print("pressed");
+                    List userObtainded =
+                        await Provider.of<Users>(context, listen: false)
+                            .isUserFoundInDatabase(
+                      usernameController1.text.trim().toString(),
+                      usernameController2.text.trim().toString(),
                     );
-                    //     // posted by and roles in order
-                    //   );
-                    // } else {
-                    //   return;
+                    print(userObtainded[0]);
+
+                    if (userObtainded[0] == false) {
+                      return;
+                    }
+                    if (userObtainded[0] == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(
+                            User(
+                                name: userObtainded[1],
+                                mailId: userObtainded[2],
+                                password: userObtainded[4],
+                                score: userObtainded[3]),
+                          ),
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 27, 67, 77),

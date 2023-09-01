@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/models/user.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
 import 'package:funwitcode/screens/profile.dart';
 
@@ -7,6 +8,8 @@ import 'leader_board_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
+  User user;
+  HomeScreen(this.user);
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -65,7 +68,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                        User(
+                          mailId: widget.user.mailId,
+                          name: widget.user.name,
+                          password: widget.user.password,
+                          score: widget.user.score,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -153,7 +165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                CardForPost(),
+                CardForPost(
+                  User(
+                    mailId: widget.user.mailId,
+                    name: widget.user.name,
+                    password: widget.user.password,
+                    score: widget.user.score,
+                  ),
+                ),
               ],
             ),
           ),

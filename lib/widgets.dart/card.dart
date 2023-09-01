@@ -1,10 +1,13 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 
+import '../models/user.dart';
 import '../screens/python_chapters.dart';
 
 // ignore: must_be_immutable
 class CardForPost extends StatefulWidget {
+  User user;
+  CardForPost(this.user);
   @override
   State<CardForPost> createState() => _CardForPostState();
 }
@@ -18,7 +21,16 @@ class _CardForPostState extends State<CardForPost> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PythonChaptersListScreen()),
+          MaterialPageRoute(
+            builder: (context) => PythonChaptersListScreen(
+              User(
+                mailId: widget.user.mailId,
+                name: widget.user.name,
+                password: widget.user.password,
+                score: widget.user.score,
+              ),
+            ),
+          ),
         );
       },
       child: Container(

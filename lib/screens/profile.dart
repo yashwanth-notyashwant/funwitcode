@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../models/user.dart';
+
 class ProfilePage extends StatefulWidget {
+  User user;
+  ProfilePage(this.user);
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -47,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   margin:
                       EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
                   child: Text(
-                    "thisisnmae",
+                    widget.user.name,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   ),
                 ),
@@ -62,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   margin:
                       EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
                   child: Text(
-                    "this is mail.id",
+                    widget.user.mailId,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   ),
                 ),
@@ -77,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   margin:
                       EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
                   child: Text(
-                    "this is score ",
+                    widget.user.score.toString(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   ),
                 ),

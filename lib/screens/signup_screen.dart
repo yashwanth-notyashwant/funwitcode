@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:funwitcode/models/user.dart';
+import 'package:provider/provider.dart';
+
+import 'authformstudent.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -113,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: TextFormField(
                       controller: usernameController2,
                       decoration: InputDecoration(
-                        labelText: 'Mail id',
+                        labelText: 'Phone number ',
                         labelStyle: const TextStyle(
                           color: const Color.fromARGB(255, 27, 67, 77),
                         ),
@@ -131,7 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter mail id .';
+                          return 'Please enter phone number .';
                         }
                         // Add additional validation rules as needed
                         return null; // Return null if the value is valid
@@ -178,36 +182,32 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () async {
                         // if user created pushreplacement the login or signup option page
 
-                        // if (usernameController1?.text.toString().trim() ==
-                        //         null ||
-                        //     _selectedOptionForYear == null ||
-                        //     _selectedOptionForBranch == null ||
-                        //     _selectedOptionForSem == null) {
-                        //   return;
-                        // }
+                        if (usernameController1?.text.toString().trim() == null ||
+                            usernameController2?.text.toString().trim() ==
+                                null ||
+                            usernameController3?.text.toString().trim() ==
+                                null) {
+                          return;
+                        }
+                        bool done = await Provider.of<Users>(context,
+                                listen: false)
+                            .addUserToDatabase(User(
+                                name:
+                                    usernameController1!.text.toString().trim(),
+                                mailId:
+                                    usernameController2!.text.toString().trim(),
+                                password:
+                                    usernameController3!.text.toString().trim(),
+                                score: 0));
 
-                        // int year =
-                        //     optionsForYear.indexOf(_selectedOptionForYear!) + 1;
-                        // int branch = optionsForBranch
-                        //         .indexOf(_selectedOptionForBranch!) +
-                        //     1;
-                        // int sem =
-                        //     optionsForSem.indexOf(_selectedOptionForSem!) + 1;
-                        // print(year);
-
-                        // print(branch);
-
-                        // print(sem);
-                        // List allPosts =
-                        //     await Provider.of<Posts>(context, listen: false)
-                        //         .fetchPostsFromDatabase(
-                        //             brCode: branch, sem: sem, year: year);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) =>
-                        //           StudentPostsScreen(allPosts)),
-                        // );
+                        if (done == false) {
+                          return;
+                        } else if (done == true) {}
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AuthFormStudent()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 27, 67, 77),

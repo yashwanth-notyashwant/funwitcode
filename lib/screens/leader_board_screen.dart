@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LeaderBoardScreen extends StatelessWidget {
-  final List<User> users = [
-    User(name: 'John Doe', email: 'johndoe@gmail.com'),
-    User(name: 'Jane Doe', email: 'janedoe@gmail.com'),
-    User(name: 'Peter Smith', email: 'petersmith@gmail.com'),
-    User(name: 'Mary Johnson', email: 'maryjohnson@gmail.com'),
-    User(name: 'David Williams', email: 'davidwilliams@gmail.com'),
+  final List<UserForLeaderBoard> users = [
+    UserForLeaderBoard(name: 'John Doe', email: 'johndoe@gmail.com'),
+    UserForLeaderBoard(name: 'Jane Doe', email: 'janedoe@gmail.com'),
+    UserForLeaderBoard(name: 'Peter Smith', email: 'petersmith@gmail.com'),
+    UserForLeaderBoard(name: 'Mary Johnson', email: 'maryjohnson@gmail.com'),
+    UserForLeaderBoard(
+        name: 'David Williams', email: 'davidwilliams@gmail.com'),
   ];
 
   @override
@@ -77,9 +78,9 @@ class LeaderBoardScreen extends StatelessWidget {
   }
 }
 
-class User {
+class UserForLeaderBoard {
   final String name;
   final String email;
 
-  const User({required this.name, required this.email});
+  const UserForLeaderBoard({required this.name, required this.email});
 }

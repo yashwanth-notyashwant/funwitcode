@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
 import 'package:funwitcode/screens/profile.dart';
 
+import '../models/user.dart';
 import 'chapter_screen.dart';
 import 'leader_board_screen.dart';
 
 // ignore: must_be_immutable
 class PythonChaptersListScreen extends StatefulWidget {
+  User user;
+  PythonChaptersListScreen(this.user);
   @override
   State<PythonChaptersListScreen> createState() =>
       _PythonChaptersListScreenState();
@@ -74,7 +77,16 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                        User(
+                          mailId: widget.user.mailId,
+                          name: widget.user.name,
+                          password: widget.user.password,
+                          score: widget.user.score,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
