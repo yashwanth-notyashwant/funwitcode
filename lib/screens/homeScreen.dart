@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funwitcode/models/user.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
 import 'package:funwitcode/screens/profile.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets.dart/card.dart';
 import 'leader_board_screen.dart';
@@ -51,12 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: Icon(
                   Icons.shield,
                 ),
-                title: const Text('Leaderboard'),
-                onTap: () {
-                  Navigator.push(
-                    context,
+                title: const Text('LeaderBoard'),
+                onTap: () async {
+                  final users = await Provider.of<Users>(context, listen: false)
+                      .getUsersOrderedByScore();
+                  Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => LeaderBoardScreen()),
+                        builder: (context) => LeaderBoardScreen(users)),
                   );
                 },
               ),

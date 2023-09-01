@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Container(
                   margin: EdgeInsets.only(left: 20, top: 10),
                   child: const Text(
-                    'Mail id :',
+                    'Phone number:',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
                   ),
                 ),

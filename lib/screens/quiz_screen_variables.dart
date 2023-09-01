@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class QuizPageVariable extends StatefulWidget {
+  int score;
+  String id;
+  QuizPageVariable(this.score, this.id);
   @override
   _QuizPageVariableState createState() => _QuizPageVariableState();
 }
 
 class _QuizPageVariableState extends State<QuizPageVariable> {
   int currentQuestionIndex = 0;
+
   List<Map<String, dynamic>> variable = [
     {
       'question': 'What is a variable in Python?',
@@ -133,25 +140,6 @@ class _QuizPageVariableState extends State<QuizPageVariable> {
     // Add more questions and answers here
   ];
 
-  void checkAnswer(int selectedOptionIndex) {
-    int correctAnswerIndex =
-        variable[currentQuestionIndex]['correctAnswerIndex'];
-    if (selectedOptionIndex == correctAnswerIndex) {
-      // Handle correct answer
-      setState(() {
-        if (currentQuestionIndex < variable.length - 1) {
-          currentQuestionIndex++;
-        }
-      });
-      print('Correct answer!');
-    } else {
-      // Handle wrong answer
-      print('Wrong answer!');
-      //open the scaffold bottom sheet
-    }
-    // Move to the next question
-  }
-
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -186,6 +174,34 @@ class _QuizPageVariableState extends State<QuizPageVariable> {
 
   @override
   Widget build(BuildContext context) {
+    void checkAnswer(int selectedOptionIndex, BuildContext context) async {
+      int correctAnswerIndex =
+          variable[currentQuestionIndex]['correctAnswerIndex'];
+      if (selectedOptionIndex == correctAnswerIndex) {
+        // Handle correct answer
+        print('Correct answer!');
+        // call the function if yes then go forward
+        final isdone =
+            await Provider.of<Users>(context, listen: false).incrementUserScore(
+          widget.id,
+        );
+        if (isdone == true) {
+          setState(() {
+            if (currentQuestionIndex < variable.length - 1) {
+              currentQuestionIndex++;
+            }
+          });
+        } else
+          return;
+      } else {
+        // Handle wrong answer
+        print('Wrong answer!');
+        _openBottomSheet(context);
+        //open the scaffold bottom sheet
+      }
+      // Move to the next question
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -258,7 +274,7 @@ class _QuizPageVariableState extends State<QuizPageVariable> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () => checkAnswer(index),
+                    onPressed: () => checkAnswer(index, context),
                     child: Text(
                       variable[currentQuestionIndex]['options'][index],
                       textAlign: TextAlign.center,

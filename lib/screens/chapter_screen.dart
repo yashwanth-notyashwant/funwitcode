@@ -8,8 +8,10 @@ import 'package:funwitcode/screens/quiz_screen_variables.dart';
 
 // ignore: must_be_immutable
 class ChapterScreen extends StatefulWidget {
+  int score;
   int indexOfChapters;
-  ChapterScreen(this.indexOfChapters);
+  String id;
+  ChapterScreen(this.indexOfChapters, this.score, this.id);
   @override
   State<ChapterScreen> createState() => _ChapterScreenState();
 }
@@ -24,14 +26,14 @@ class _ChapterScreenState extends State<ChapterScreen> {
     " 6.Dictionaries",
   ];
 
-  final List classNames = [
-    QuizPageVariable(),
-    QuizPageFunction(),
-    QuizPageConditionals(),
-    QuizPageLoops(),
-    QuizPageLists(),
-    QuizPageDict(),
-  ];
+  // final List classNames = [
+  //   QuizPageVariable(score),
+  //   QuizPageFunction(),
+  //   QuizPageConditionals(),
+  //   QuizPageLoops(),
+  //   QuizPageLists(),
+  //   QuizPageDict(),
+  // ];
   //add all here finally
 
   final List<String> texts = [
@@ -724,6 +726,14 @@ print(list_dict_, set_dict_, int_dict_)
   ];
   @override
   Widget build(BuildContext context) {
+    final List classNames = [
+      QuizPageVariable(widget.score, widget.id),
+      QuizPageFunction(widget.score, widget.id),
+      QuizPageConditionals(widget.score, widget.id),
+      QuizPageLoops(widget.score, widget.id),
+      QuizPageLists(widget.score, widget.id),
+      QuizPageDict(widget.score, widget.id),
+    ];
     // var hi = MediaQuery.of(context).size.height;
     var wi = MediaQuery.of(context).size.width;
     return MaterialApp(

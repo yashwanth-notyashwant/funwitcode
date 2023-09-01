@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../models/user.dart';
+
 class LeaderBoardScreen extends StatelessWidget {
-  final List<UserForLeaderBoard> users = [
-    UserForLeaderBoard(name: 'John Doe', email: 'johndoe@gmail.com'),
-    UserForLeaderBoard(name: 'Jane Doe', email: 'janedoe@gmail.com'),
-    UserForLeaderBoard(name: 'Peter Smith', email: 'petersmith@gmail.com'),
-    UserForLeaderBoard(name: 'Mary Johnson', email: 'maryjohnson@gmail.com'),
-    UserForLeaderBoard(
-        name: 'David Williams', email: 'davidwilliams@gmail.com'),
-  ];
+  // final List<UserForLeaderBoard> users = [
+  //   UserForLeaderBoard(name: 'John Doe', email: 'johndoe@gmail.com'),
+  //   UserForLeaderBoard(name: 'Jane Doe', email: 'janedoe@gmail.com'),
+  //   UserForLeaderBoard(name: 'Peter Smith', email: 'petersmith@gmail.com'),
+  //   UserForLeaderBoard(name: 'Mary Johnson', email: 'maryjohnson@gmail.com'),
+  //   UserForLeaderBoard(
+  //       name: 'David Williams', email: 'davidwilliams@gmail.com'),
+  // ];
+  final List<User> allUsers;
+  LeaderBoardScreen(this.allUsers);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +20,14 @@ class LeaderBoardScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
-          height: users.length * 200,
+          height: 500 + allUsers.length * 200,
           child: Column(
             children: [
               Image.asset('./lib/assets/prizeimage.png'),
               Expanded(
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: users.length,
+                  itemCount: allUsers.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       height: 70,
@@ -44,15 +48,16 @@ class LeaderBoardScreen extends StatelessWidget {
                         ],
                       ),
                       child: ListTile(
-                        trailing: Text("Score 31"),
+                        trailing:
+                            Text("Score :" + allUsers[index].score.toString()),
                         subtitle: Text(
-                          users[index].email,
+                          allUsers[index].mailId,
                           key: Key(index.toString()),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w400),
                         ),
                         title: Text(
-                          users[index].name,
+                          allUsers[index].name,
                           key: Key(index.toString()),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w400),

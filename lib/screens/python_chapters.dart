@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funwitcode/screens/authformstudent.dart';
 import 'package:funwitcode/screens/profile.dart';
+import 'package:provider/provider.dart';
 
 import '../models/user.dart';
 import 'chapter_screen.dart';
@@ -62,10 +63,12 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
                   Icons.shield,
                 ),
                 title: const Text('LeaderBoard'),
-                onTap: () {
+                onTap: () async {
+                  final users = await Provider.of<Users>(context, listen: false)
+                      .getUsersOrderedByScore();
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => LeaderBoardScreen()),
+                        builder: (context) => LeaderBoardScreen(users)),
                   );
                 },
               ),
@@ -214,7 +217,8 @@ class _PythonChaptersListScreenState extends State<PythonChaptersListScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChapterScreen(index)),
+                                  builder: (context) => ChapterScreen(index,
+                                      widget.user.score, widget.user.mailId)),
                             );
                             print(index + 1);
                           },

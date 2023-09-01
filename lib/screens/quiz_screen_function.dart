@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class QuizPageFunction extends StatefulWidget {
+  int score;
+  String id;
+  QuizPageFunction(this.score, this.id);
   @override
   _QuizPageFunctionState createState() => _QuizPageFunctionState();
 }
 
 class _QuizPageFunctionState extends State<QuizPageFunction> {
   int currentQuestionIndex = 0;
-  List<Map<String, dynamic>> function = [
+  List<Map<String, dynamic>> variable = [
     {
       'question': 'What is a function in Python?',
       'options': [
@@ -171,25 +177,6 @@ class _QuizPageFunctionState extends State<QuizPageFunction> {
     // Add more questions and answers here
   ];
 
-  void checkAnswer(int selectedOptionIndex) {
-    int correctAnswerIndex =
-        function[currentQuestionIndex]['correctAnswerIndex'];
-    if (selectedOptionIndex == correctAnswerIndex) {
-      // Handle correct answer
-      setState(() {
-        if (currentQuestionIndex < function.length - 1) {
-          currentQuestionIndex++;
-        }
-      });
-      print('Correct answer!');
-    } else {
-      // Handle wrong answer
-      print('Wrong answer!');
-      //open the scaffold bottom sheet
-    }
-    // Move to the next question
-  }
-
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -211,7 +198,7 @@ class _QuizPageFunctionState extends State<QuizPageFunction> {
               margin: EdgeInsets.only(left: 20, top: 50),
               color: const Color.fromARGB(255, 255, 247, 247),
               child: Text(
-                '${function[currentQuestionIndex]['hint']}',
+                '${variable[currentQuestionIndex]['hint']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                 textAlign: TextAlign.start,
               ),
@@ -224,6 +211,34 @@ class _QuizPageFunctionState extends State<QuizPageFunction> {
 
   @override
   Widget build(BuildContext context) {
+    void checkAnswer(int selectedOptionIndex, BuildContext context) async {
+      int correctAnswerIndex =
+          variable[currentQuestionIndex]['correctAnswerIndex'];
+      if (selectedOptionIndex == correctAnswerIndex) {
+        // Handle correct answer
+        print('Correct answer!');
+        // call the function if yes then go forward
+        final isdone =
+            await Provider.of<Users>(context, listen: false).incrementUserScore(
+          widget.id,
+        );
+        if (isdone == true) {
+          setState(() {
+            if (currentQuestionIndex < variable.length - 1) {
+              currentQuestionIndex++;
+            }
+          });
+        } else
+          return;
+      } else {
+        // Handle wrong answer
+        print('Wrong answer!');
+        _openBottomSheet(context);
+        //open the scaffold bottom sheet
+      }
+      // Move to the next question
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -278,14 +293,14 @@ class _QuizPageFunctionState extends State<QuizPageFunction> {
             Container(
               margin: EdgeInsets.only(left: 7, right: 5),
               child: Text(
-                function[currentQuestionIndex]['question'],
+                variable[currentQuestionIndex]['question'],
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300),
               ),
             ),
             SizedBox(height: 30),
             Column(
               children: List.generate(
-                function[currentQuestionIndex]['options'].length,
+                variable[currentQuestionIndex]['options'].length,
                 (index) => Container(
                   // height: 60,
                   margin: EdgeInsets.all(10),
@@ -296,9 +311,9 @@ class _QuizPageFunctionState extends State<QuizPageFunction> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () => checkAnswer(index),
+                    onPressed: () => checkAnswer(index, context),
                     child: Text(
-                      function[currentQuestionIndex]['options'][index],
+                      variable[currentQuestionIndex]['options'][index],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,

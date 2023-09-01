@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class QuizPageConditionals extends StatefulWidget {
+  int score;
+  String id;
+  QuizPageConditionals(this.score, this.id);
   @override
   _QuizPageConditionalsState createState() => _QuizPageConditionalsState();
 }
@@ -9,148 +15,126 @@ class _QuizPageConditionalsState extends State<QuizPageConditionals> {
   int currentQuestionIndex = 0;
   List<Map<String, dynamic>> variable = [
     {
-      'question': 'What is a variable in Python?',
+      'question': 'What is a conditional statement in Python?',
       'options': [
-        'a) A reserved keyword',
-        'b) A named container for storing data values',
-        'c) A mathematical operation',
-        'd) A programming function'
+        'a) A statement that always executes',
+        'b) A statement that performs a specific task',
+        'c) A statement that allows you to make decisions in your code',
+        'd) A statement used for mathematical operations'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: A conditional statement in Python is used to make decisions in your code based on certain conditions. It allows your program to take different paths and execute different code blocks depending on whether the specified condition is true or false.
+ """,
+    },
+    {
+      'question':
+          'Which keyword is used to define a simple if statement in Python?',
+      'options': ['a) for', 'b) if', 'c) while', 'd) else'],
+      'correctAnswerIndex': 1,
+      'hint':
+          """ Explanation: In Python, you use the `if` keyword to define a simple conditional statement. The code block under the `if` statement is executed only if the specified condition is true.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the else statement in Python?',
+      'options': [
+        'a) To define a loop',
+        'b) To indicate the end of a function',
+        'c) To provide an alternative code block when the if condition is false',
+        'd) To create a new object of a class'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `else` statement in Python is used to provide an alternative code block that is executed when the condition specified in the preceding `if` statement is false. It allows you to handle different scenarios in your code.
+ """,
+    },
+    {
+      'question':
+          'Which of the following is a valid Python comparison operator?',
+      'options': ['a) **', 'b) <>', 'c) !=', 'd) &='],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `!=` operator is a valid Python comparison operator used to check if two values are not equal to each other. It is used in conditional expressions to compare values.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the elif statement in Python?',
+      'options': [
+        'a) To define a loop',
+        'b) To indicate the end of a function',
+        'c) To provide an additional condition to check when the if condition is false',
+        'd) To create a new object of a class'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `elif` statement in Python is used to provide an additional condition to check when the preceding `if` condition is false. It allows you to handle multiple conditions and execute different code blocks based on the first true condition encountered.
+ """,
+    },
+    {
+      'question': 'What is a Boolean expression in Python?',
+      'options': [
+        'a) A type of loop',
+        'b) An expression that evaluates to either True or False',
+        'c) A built-in Python function',
+        'd) A method to define class inheritance'
       ],
       'correctAnswerIndex': 1,
       'hint':
-          """ Explanation: A variable in Python is a named container that stores data values. It allows you to refer to data by a name rather than the actual value. This answer accurately describes the purpose of a variable in Python.""",
+          """ Explanation: A Boolean expression in Python is an expression that evaluates to either `True` or `False`. It is commonly used in conditional statements to make decisions based on the truth value of the expression.
+ """,
     },
     {
-      'question': 'Which of the following is a valid variable name in Python?',
-      'options': [
-        'a) 123variable',
-        'b) my-variable',
-        'c) _my_variable',
-        'd) class'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """ Explanation: Variable names in Python can start with a letter (a-z, A-Z) or an underscore (_), followed by letters, digits (0-9), or underscores. The other options (`123variable`, `my-variable`, `class`) do not follow these rules for valid variable names. """,
-    },
-    {
-      'question': 'What is the purpose of the type() function in Python?',
-      'options': [
-        'a) To declare a new variable',
-        'b) To print the variable\'s value',
-        'c) To check the data type of a variable',
-        'd) To convert a variable to a string'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """ Explanation: The `type()` function in Python is used to determine the data type of a given object or variable. It returns the class type of an object, which helps in understanding the type of data being stored. """,
-    },
-    {
-      'question': 'What is the scope of a variable in Python?',
-      'options': [
-        'a) The number of times a variable is used',
-        'b) The area of code where a variable can be accessed',
-        'c) The length of a variable\'s name',
-        'd) The size of memory allocated to a variable'
-      ],
+      'question':
+          'Which keyword is used to check if a value is in a list in Python?',
+      'options': ['a) include', 'b) in', 'c) exists', 'd) contains'],
       'correctAnswerIndex': 1,
       'hint':
-          """ Explanation: The scope of a variable in Python defines where the variable can be accessed or used. Variables can have local (limited to a specific function or block) or global (accessible throughout the entire program) scope.
+          """ Explanation: In Python, you use the `in` keyword to check if a value is present in a list or other iterable. It is often used in conditional statements to perform actions based on the presence or absence of a value in a collection.
  """,
     },
     {
       'question':
-          'Which data type is used to store a single character in Python?',
-      'options': ['a) char', 'b) string', 'c) character', 'd) charact'],
-      'correctAnswerIndex': 1,
-      'hint':
-          """   Explanation: In Python, a single character is represented using a string with a length of 1. While there's no separate character data type like some other languages (e.g., C++), strings can be used to store individual characters.""",
-    },
-    {
-      'question':
-          'In Python, how can you assign multiple values to multiple variables in one line?',
+          'What is the purpose of the ternary conditional expression in Python?',
       'options': [
-        'a) Use the multi_assign() function',
-        'b) Use the assign keyword',
-        'c) Use the = operator and separate values with commas',
-        'd) It\'s not possible to assign multiple values in one line'
+        'a) To define a loop',
+        'b) To provide an alternative code block when the if condition is false',
+        'c) To create a new object of a class',
+        'd) To write a one-line if-else statement'
       ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """Explanation: You can assign multiple values to multiple variables in one line by separating the values with commas and using the `=` operator for assignment. For example: `x, y, z = 1, 2, 3`.
- """,
-    },
-    {
-      'question':
-          'What happens if you try to access a variable that hasn\'t been assigned a value?',
-      'options': [
-        'a) It raises a syntax error',
-        'b) It returns an empty string',
-        'c) It raises a NameError indicating the variable is not defined',
-        'd) It returns the value None'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """  Explanation: If you try to access a variable that hasn't been assigned a value, Python raises a `NameError` indicating that the variable is not defined in the current scope.
- """,
-    },
-    {
-      'question': 'What does the id() function in Python return?',
-      'options': [
-        'a) The memory address of a variable',
-        'b) The data type of a variable',
-        'c) The value of a variable',
-        'd) The name of a variable'
-      ],
-      'correctAnswerIndex': 0,
-      'hint':
-          """  Explanation: The `id()` function in Python returns the memory address (a unique identifier) of an object, which can be useful to identify whether two variables refer to the same object in memory.
- """,
-    },
-    {
-      'question':
-          'What is the correct way to convert an integer variable x to a string in Python?',
-      'options': [
-        'a) str(x)',
-        'b) string(x)',
-        'c) convert(x, str)',
-        'd) x.str()'
-      ],
-      'correctAnswerIndex': 0,
-      'hint':
-          """  Explanation: The `str()` function in Python is used to convert values to strings. So, `str(x)` converts an integer variable `x` to a string. """,
-    },
-    {
-      'question': """Which of the following is a mutable data type in Python?
-    "Last question , exit manually" 
-      """,
-      'options': ['a) int', 'b) str', 'c) tuple', 'd) list'],
       'correctAnswerIndex': 3,
       'hint':
-          """  Explanation: A list is a mutable data type in Python. This means that you can modify its contents after it has been created. The other options (`int`, `str`, `tuple`) are immutable data types, meaning their values cannot be changed once they are created.
-
-""",
+          """ Explanation: The ternary conditional expression in Python is used to write a one-line if-else statement. It provides a compact way to assign a value to a variable based on a condition.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the pass statement in Python?',
+      'options': [
+        'a) To define a loop',
+        'b) To indicate the end of a function',
+        'c) To provide a placeholder for code that does nothing',
+        'd) To create a new object of a class'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `pass` statement in Python is used to provide a placeholder for code that does nothing. It is often used when you need a syntactically correct block of code but don't want to add any functionality yet.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the or operator (||) in Python?',
+      'options': [
+        'a) To combine two or more conditions and return True if at least one is true',
+        'b) To perform a bitwise OR operation',
+        'c) To check if two values are equal',
+        'd) To create a new object of a class'
+      ],
+      'correctAnswerIndex': 0,
+      'hint':
+          """ Explanation: The `or` operator (`||` in some other programming languages) in Python is used to combine two or more conditions and return `True` if at least one of the conditions is true. It is often used in conditional expressions for logical OR operations.
+ """,
     },
     // Add more questions and answers here
   ];
-
-  void checkAnswer(int selectedOptionIndex) {
-    int correctAnswerIndex =
-        variable[currentQuestionIndex]['correctAnswerIndex'];
-    if (selectedOptionIndex == correctAnswerIndex) {
-      // Handle correct answer
-      setState(() {
-        if (currentQuestionIndex < variable.length - 1) {
-          currentQuestionIndex++;
-        }
-      });
-      print('Correct answer!');
-    } else {
-      // Handle wrong answer
-      print('Wrong answer!');
-      //open the scaffold bottom sheet
-    }
-    // Move to the next question
-  }
 
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -186,6 +170,34 @@ class _QuizPageConditionalsState extends State<QuizPageConditionals> {
 
   @override
   Widget build(BuildContext context) {
+    void checkAnswer(int selectedOptionIndex, BuildContext context) async {
+      int correctAnswerIndex =
+          variable[currentQuestionIndex]['correctAnswerIndex'];
+      if (selectedOptionIndex == correctAnswerIndex) {
+        // Handle correct answer
+        print('Correct answer!');
+        // call the function if yes then go forward
+        final isdone =
+            await Provider.of<Users>(context, listen: false).incrementUserScore(
+          widget.id,
+        );
+        if (isdone == true) {
+          setState(() {
+            if (currentQuestionIndex < variable.length - 1) {
+              currentQuestionIndex++;
+            }
+          });
+        } else
+          return;
+      } else {
+        // Handle wrong answer
+        print('Wrong answer!');
+        _openBottomSheet(context);
+        //open the scaffold bottom sheet
+      }
+      // Move to the next question
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -258,7 +270,7 @@ class _QuizPageConditionalsState extends State<QuizPageConditionals> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () => checkAnswer(index),
+                    onPressed: () => checkAnswer(index, context),
                     child: Text(
                       variable[currentQuestionIndex]['options'][index],
                       textAlign: TextAlign.center,

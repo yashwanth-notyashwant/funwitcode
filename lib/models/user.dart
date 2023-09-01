@@ -36,7 +36,104 @@ class User {
 }
 
 class Users with ChangeNotifier {
+  Future<bool> incrementUserScore(String userId) async {
+    const databaseUrl = 'https://funwitcode-default-rtdb.firebaseio.com/';
+    final url = Uri.parse('$databaseUrl/users/$userId.json');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final userData = json.decode(response.body);
+        if (userData != null && userData['score'] != null) {
+          final currentScore = userData['score'] as int;
+          final newScore = currentScore + 1;
+
+          final updateResponse = await http.patch(
+            // Use patch to update a specific field without sending the entire object
+            url,
+            body: json.encode({"score": newScore}),
+          );
+
+          if (updateResponse.statusCode == 200) {
+            // If the PATCH request is successful (status code 200), return true
+            print(updateResponse.body);
+            print(updateResponse.statusCode);
+            return true;
+          } else {
+            print(updateResponse.body);
+            print(updateResponse.statusCode);
+            // If the PATCH request is not successful, return false
+            return false;
+          }
+        }
+      }
+    } catch (error) {
+      // If an error occurs during the request, return false
+      print(error);
+    }
+
+    return false; // Default value if there was an error or no user data found
+  }
+
+  Future<List<User>> getUsersOrderedByScore() async {
+    const databaseUrl = 'https://funwitcode-default-rtdb.firebaseio.com/';
+    final url = Uri.parse('$databaseUrl/users.json');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> userData = json.decode(response.body);
+
+        // Convert the JSON data to a list of User objects
+        final List<User> userList =
+            userData.values.map((userJson) => User.fromJson(userJson)).toList();
+
+        // Sort the list by score in increasing order
+        userList.sort((a, b) => b.score.compareTo(a.score));
+
+        return userList;
+      } else {
+        // Handle the error when the GET request is not successful
+        throw Exception('Failed to load users');
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      throw Exception('Error: $error');
+    }
+  }
+
   Future<bool> addUserToDatabase(User user) async {
+    Future<bool> incrementUserScore(String userId, int incrementAmount) async {
+      const databaseUrl = 'https://funwitcode-default-rtdb.firebaseio.com/';
+      final url = Uri.parse('$databaseUrl/users/$userId.json');
+
+      try {
+        final response = await http.patch(
+          // Use patch to update a specific field without sending the entire object
+          url,
+          body: json.encode({"score": incrementAmount}),
+        );
+
+        if (response.statusCode == 200) {
+          // If the PATCH request is successful (status code 200), return true
+          print(response.body);
+          print(response.statusCode);
+          return true;
+        } else {
+          print(response.body);
+          print(response.statusCode);
+          // If the PATCH request is not successful, return false
+          return false;
+        }
+      } catch (error) {
+        // If an error occurs during the request, return false
+        print(error);
+        return false;
+      }
+    }
+
     const databaseUrl = 'https://funwitcode-default-rtdb.firebaseio.com/';
     final url = Uri.parse('$databaseUrl/users/${user.mailId}.json');
 

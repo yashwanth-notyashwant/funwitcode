@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class QuizPageDict extends StatefulWidget {
+  int score;
+  String id;
+  QuizPageDict(this.score, this.id);
   @override
   _QuizPageDictState createState() => _QuizPageDictState();
 }
@@ -9,148 +15,139 @@ class _QuizPageDictState extends State<QuizPageDict> {
   int currentQuestionIndex = 0;
   List<Map<String, dynamic>> variable = [
     {
-      'question': 'What is a variable in Python?',
+      'question': 'What is a dictionary in Python?',
       'options': [
-        'a) A reserved keyword',
-        'b) A named container for storing data values',
+        'a) A type of loop',
+        'b) A collection of key-value pairs',
         'c) A mathematical operation',
-        'd) A programming function'
+        'd) A reserved keyword'
       ],
       'correctAnswerIndex': 1,
       'hint':
-          """ Explanation: A variable in Python is a named container that stores data values. It allows you to refer to data by a name rather than the actual value. This answer accurately describes the purpose of a variable in Python.""",
-    },
-    {
-      'question': 'Which of the following is a valid variable name in Python?',
-      'options': [
-        'a) 123variable',
-        'b) my-variable',
-        'c) _my_variable',
-        'd) class'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """ Explanation: Variable names in Python can start with a letter (a-z, A-Z) or an underscore (_), followed by letters, digits (0-9), or underscores. The other options (`123variable`, `my-variable`, `class`) do not follow these rules for valid variable names. """,
-    },
-    {
-      'question': 'What is the purpose of the type() function in Python?',
-      'options': [
-        'a) To declare a new variable',
-        'b) To print the variable\'s value',
-        'c) To check the data type of a variable',
-        'd) To convert a variable to a string'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """ Explanation: The `type()` function in Python is used to determine the data type of a given object or variable. It returns the class type of an object, which helps in understanding the type of data being stored. """,
-    },
-    {
-      'question': 'What is the scope of a variable in Python?',
-      'options': [
-        'a) The number of times a variable is used',
-        'b) The area of code where a variable can be accessed',
-        'c) The length of a variable\'s name',
-        'd) The size of memory allocated to a variable'
-      ],
-      'correctAnswerIndex': 1,
-      'hint':
-          """ Explanation: The scope of a variable in Python defines where the variable can be accessed or used. Variables can have local (limited to a specific function or block) or global (accessible throughout the entire program) scope.
+          """ Explanation: A dictionary in Python is a collection of key-value pairs. It allows you to store and retrieve data using unique keys, making it a versatile data structure for various tasks.
  """,
     },
     {
-      'question':
-          'Which data type is used to store a single character in Python?',
-      'options': ['a) char', 'b) string', 'c) character', 'd) charact'],
-      'correctAnswerIndex': 1,
-      'hint':
-          """   Explanation: In Python, a single character is represented using a string with a length of 1. While there's no separate character data type like some other languages (e.g., C++), strings can be used to store individual characters.""",
-    },
-    {
-      'question':
-          'In Python, how can you assign multiple values to multiple variables in one line?',
+      'question': 'How do you define a dictionary in Python?',
       'options': [
-        'a) Use the multi_assign() function',
-        'b) Use the assign keyword',
-        'c) Use the = operator and separate values with commas',
-        'd) It\'s not possible to assign multiple values in one line'
+        'a) dict dictionary_name = {}',
+        'b) dictionary_name = []',
+        'c) create dictionary_name()',
+        'd) dictionary_name = {}'
       ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """Explanation: You can assign multiple values to multiple variables in one line by separating the values with commas and using the `=` operator for assignment. For example: `x, y, z = 1, 2, 3`.
- """,
-    },
-    {
-      'question':
-          'What happens if you try to access a variable that hasn\'t been assigned a value?',
-      'options': [
-        'a) It raises a syntax error',
-        'b) It returns an empty string',
-        'c) It raises a NameError indicating the variable is not defined',
-        'd) It returns the value None'
-      ],
-      'correctAnswerIndex': 2,
-      'hint':
-          """  Explanation: If you try to access a variable that hasn't been assigned a value, Python raises a `NameError` indicating that the variable is not defined in the current scope.
- """,
-    },
-    {
-      'question': 'What does the id() function in Python return?',
-      'options': [
-        'a) The memory address of a variable',
-        'b) The data type of a variable',
-        'c) The value of a variable',
-        'd) The name of a variable'
-      ],
-      'correctAnswerIndex': 0,
-      'hint':
-          """  Explanation: The `id()` function in Python returns the memory address (a unique identifier) of an object, which can be useful to identify whether two variables refer to the same object in memory.
- """,
-    },
-    {
-      'question':
-          'What is the correct way to convert an integer variable x to a string in Python?',
-      'options': [
-        'a) str(x)',
-        'b) string(x)',
-        'c) convert(x, str)',
-        'd) x.str()'
-      ],
-      'correctAnswerIndex': 0,
-      'hint':
-          """  Explanation: The `str()` function in Python is used to convert values to strings. So, `str(x)` converts an integer variable `x` to a string. """,
-    },
-    {
-      'question': """Which of the following is a mutable data type in Python?
-    "Last question , exit manually" 
-      """,
-      'options': ['a) int', 'b) str', 'c) tuple', 'd) list'],
       'correctAnswerIndex': 3,
       'hint':
-          """  Explanation: A list is a mutable data type in Python. This means that you can modify its contents after it has been created. The other options (`int`, `str`, `tuple`) are immutable data types, meaning their values cannot be changed once they are created.
-
-""",
+          """ Explanation: To define a dictionary in Python, you use curly braces `{}` and specify key-value pairs inside them, separated by colons. For example, `my_dict = {'key1': 'value1', 'key2': 'value2'}`.
+ """,
+    },
+    {
+      'question': 'What is the purpose of keys in a dictionary?',
+      'options': [
+        'a) To define the dictionary',
+        'b) To store values',
+        'c) To provide a name for each item',
+        'd) To exit the program'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: Keys in a dictionary serve as unique identifiers for each item (value) stored in the dictionary. They provide a way to access and retrieve values based on their associated keys.
+ """,
+    },
+    {
+      'question': 'How can you access a value in a dictionary in Python?',
+      'options': [
+        'a) By using square brackets and the key',
+        'b) By using the `value` keyword',
+        'c) By using the index',
+        'd) By using parentheses'
+      ],
+      'correctAnswerIndex': 0,
+      'hint':
+          """ Explanation: You can access a value in a dictionary in Python by using square brackets `[]` followed by the key associated with the value you want to retrieve. For example, `my_dict['key']` will return the value associated with 'key'.
+ """,
+    },
+    {
+      'question':
+          'What happens if you try to access a key that does not exist in a dictionary?',
+      'options': [
+        'a) It raises a KeyError',
+        'b) It returns a None value',
+        'c) It creates a new key-value pair with the provided key',
+        'd) It deletes the dictionary'
+      ],
+      'correctAnswerIndex': 0,
+      'hint':
+          """ Explanation: If you try to access a key that does not exist in a dictionary, it will raise a `KeyError` exception. To avoid this, you can use the `get()` method or check if the key exists using the `in` keyword.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the values() method in a dictionary?',
+      'options': [
+        'a) To define the dictionary',
+        'b) To access the keys of the dictionary',
+        'c) To access the values of the dictionary',
+        'd) To delete the dictionary'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `values()` method in a dictionary is used to access the values stored in the dictionary. It returns a view of all the values in the dictionary.
+ """,
+    },
+    {
+      'question':
+          'How can you add a new key-value pair to an existing dictionary?',
+      'options': [
+        'a) By using square brackets and assigning a value to a new key',
+        'b) By using the `append()` method',
+        'c) By using parentheses and a key-value pair',
+        'd) By using the `add()` method'
+      ],
+      'correctAnswerIndex': 0,
+      'hint':
+          """ Explanation: You can add a new key-value pair to an existing dictionary in Python by using square brackets `[]` and assigning a value to a new key. For example, `my_dict['new_key'] = 'new_value'`.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the items() method in a dictionary?',
+      'options': [
+        'a) To access the keys of the dictionary',
+        'b) To access the values of the dictionary',
+        'c) To access both keys and their corresponding values as tuples',
+        'd) To define the dictionary'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: The `items()` method in a dictionary is used to access both keys and their corresponding values as tuples. It returns a view of all key-value pairs in the dictionary.
+ """,
+    },
+    {
+      'question': 'What is the purpose of the del statement in Python?',
+      'options': [
+        'a) To access values in a dictionary',
+        'b) To delete elements from a list',
+        'c) To define a function',
+        'd) To remove a key-value pair from a dictionary'
+      ],
+      'correctAnswerIndex': 3,
+      'hint':
+          """ Explanation: The `del` statement in Python is used to remove a key-value pair from a dictionary. You specify the key that you want to delete using the `del` statement.
+ """,
+    },
+    {
+      'question': 'What is a dictionary comprehension in Python?',
+      'options': [
+        'a) A way to create a dictionary with predefined keys',
+        'b) A built-in Python function for dictionaries',
+        'c) A compact way to create dictionaries using an expression',
+        'd) A way to check if a dictionary is empty'
+      ],
+      'correctAnswerIndex': 2,
+      'hint':
+          """ Explanation: A dictionary comprehension in Python is a compact way to create dictionaries using an expression and an iterable. It allows you to create dictionaries with predefined keys and values based on a specific pattern.
+ """,
     },
     // Add more questions and answers here
   ];
-
-  void checkAnswer(int selectedOptionIndex) {
-    int correctAnswerIndex =
-        variable[currentQuestionIndex]['correctAnswerIndex'];
-    if (selectedOptionIndex == correctAnswerIndex) {
-      // Handle correct answer
-      setState(() {
-        if (currentQuestionIndex < variable.length - 1) {
-          currentQuestionIndex++;
-        }
-      });
-      print('Correct answer!');
-    } else {
-      // Handle wrong answer
-      print('Wrong answer!');
-      //open the scaffold bottom sheet
-    }
-    // Move to the next question
-  }
 
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -186,6 +183,34 @@ class _QuizPageDictState extends State<QuizPageDict> {
 
   @override
   Widget build(BuildContext context) {
+    void checkAnswer(int selectedOptionIndex, BuildContext context) async {
+      int correctAnswerIndex =
+          variable[currentQuestionIndex]['correctAnswerIndex'];
+      if (selectedOptionIndex == correctAnswerIndex) {
+        // Handle correct answer
+        print('Correct answer!');
+        // call the function if yes then go forward
+        final isdone =
+            await Provider.of<Users>(context, listen: false).incrementUserScore(
+          widget.id,
+        );
+        if (isdone == true) {
+          setState(() {
+            if (currentQuestionIndex < variable.length - 1) {
+              currentQuestionIndex++;
+            }
+          });
+        } else
+          return;
+      } else {
+        // Handle wrong answer
+        print('Wrong answer!');
+        _openBottomSheet(context);
+        //open the scaffold bottom sheet
+      }
+      // Move to the next question
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -258,7 +283,7 @@ class _QuizPageDictState extends State<QuizPageDict> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(bottom: 5, left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () => checkAnswer(index),
+                    onPressed: () => checkAnswer(index, context),
                     child: Text(
                       variable[currentQuestionIndex]['options'][index],
                       textAlign: TextAlign.center,
